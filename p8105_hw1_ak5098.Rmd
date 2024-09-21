@@ -1,0 +1,72 @@
+---
+title: "p8105_hw1_ak5098"
+output: github_document
+date: "2024-09-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+install.packages("tidyr")
+library(tidyr)
+
+
+```
+
+```{r}
+#PROBLEM 1
+
+install.packages("palmerpenguins")
+data("penguins", package = "palmerpenguins")
+
+
+nrow(penguins)
+ncol(penguins)
+head(penguins)
+
+mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
+
+penguinplot = ggplot(penguins, aes(x=bill_length_mm, y=flipper_length_mm, color=species)) +geom_point()
+penguinplot
+ggsave("penguinplot.png")
+
+
+```
+#Summary of Penguins
+important variable names: species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, year
+number of rows: 344
+number of columns: 8
+mean fipper length in mm: 200.9152
+
+```{r}
+#PROBLEM 2
+
+samp=rnorm(10)
+logical = samp > 0
+char = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+factor = sample(c("low", "medium", "high"), size = 10, replace = TRUE)
+
+problem2 = 
+  tibble(samp, logical, char, factor)
+
+print(problem2)
+
+mean(pull(problem2, samp))
+mean(pull(problem2, logical))
+mean(pull(problem2, char))
+mean(pull(problem2,factor))
+```
+The mean can be taken for the numeric and logical vectors. It cannot be taken for the character and factor vectors. 
+
+```{r}
+#PROBLEM 2 CONT.
+as.numeric(logical)
+as.numeric(char)
+as.numeric(factor)
+```
+With logical, every TRUE converts to 1 and every FALSE converts to 0. For character vector, every element turns into NA. The same hapens with the factor vector. 
+This makes sense in relation to the output from the mean function, because you cannot take the mean for NA. 
